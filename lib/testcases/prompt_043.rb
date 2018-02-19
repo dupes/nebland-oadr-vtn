@@ -190,7 +190,7 @@ class Prompt043 < PromptBase
 
   def execute
 
-    create_report = create_create_request('METADATA_HISTORY_USAGE', DateTime.now, 0, 0, 0, false, true, false)
+    create_report = create_create_request('METADATA_HISTORY_USAGE', DateTime.now, "PT0M", "PT0M", "PT0M", false, true, false)
 
     report_request = create_report.report_requests[0]
 

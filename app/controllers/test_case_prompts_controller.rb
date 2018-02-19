@@ -185,6 +185,7 @@
 #
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+require 'clear_events.rb'
 
 class TestCasePromptsController  < BaseController
   before_filter :logged_in_account
@@ -223,26 +224,10 @@ class TestCasePromptsController  < BaseController
   ########################################################
 
   def clear_events
-
-    vtn_parameter = VtnParameter.first
-
-    ven = vtn_parameter.ven
-
-    events = ven.events
-
-    events.each do |event|
-      event.destroy
-    end
-
-    ven.ven_messages.destroy_all
-    
-    ven.reload
-
-    ven.generate_distribute_event_payload_value
-    ven.save
+    ClearEvents::clear_events
     
     flash[:notice] = "Events Cleared"
-
+    
     params.delete(:authenticity_token)
     params.delete(:action)
 

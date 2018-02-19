@@ -274,11 +274,12 @@ class RegisterPartyService < OadrService
         @ssl_ven.save
       end
 
+    elsif not @ssl_ven.nil?
+      # use the VEN found by fingerprint if SSL is enabled
+      ven = @ssl_ven
+
     elsif not create_registration.oadr_ven_name.nil? and create_registration.oadr_ven_name != ""
       ven = Ven.find_by_name(create_registration.oadr_ven_name)
-
-    else
-      ven = @ssl_ven
 
     end
 

@@ -194,7 +194,7 @@ module VenInterface
     def initialize
 
       @name = Ven.fields[:name]
-      @common_name = Ven.fields[:common_name]
+      @fingerprint = Ven.fields[:fingerprint]
       @ven_id = Ven.fields[:ven_id]
       @email = Ven.fields[:email]
       @profile_id = Ven.fields[:profile_id]
@@ -216,7 +216,7 @@ module VenInterface
       @fields = {}
 
       @fields[:name] = @name
-      @fields[:common_name] = @common_name
+      @fields[:fingerprint] = @fingerprint
       @fields[:ven_id] = @ven_id
       @fields[:email] = @email
       @fields[:profile_id] = @profile_id

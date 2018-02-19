@@ -618,14 +618,22 @@ end
 #
 ven = admin.vens.new
 ven.name = "TH_VEN"
-ven.common_name = "cn1"
-ven.save
-
-ven = admin.vens.new
-ven.name = "Test_VEN_Name"
-ven.common_name = "111111111111"
+ven.fingerprint= "cn1"
 ven.save
 
 # default VEN used for testing with the QualityLogic test harness
 vtn_parameters.ven = ven
 vtn_parameters.save
+
+# add ven resources for compliance testing
+t = Target.create!(name: "resource1", tag: "resource1-tag", type: "ResourceId")
+ven.targets << t
+
+t = Target.create!(name: "resource2", tag: "resource2-tag", type: "ResourceId")
+ven.targets << t
+
+ven = admin.vens.new
+ven.name = "Test_VEN_Name"
+ven.fingerprint = "111111111111"
+ven.save
+

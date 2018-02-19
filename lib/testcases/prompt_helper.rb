@@ -370,7 +370,7 @@ module PromptHelper
     report_request = create_report.report_requests.new
 
     report_request.report = ven.reports.joins("inner join report_names on report_names.id = reports.report_name_id and report_names.name = '#{report_name}'")[0]
-
+    
     report_request.duration = duration
     report_request.granularity = granularity
     report_request.report_back_duration = report_back_duration
@@ -382,7 +382,8 @@ module PromptHelper
     report_request.is_metadata = metadata
 
     report_request.save!
-
+    
+    return report_request
   end
 
   #####################################################################
@@ -392,10 +393,7 @@ module PromptHelper
 
     ven.create_reports.destroy_all if clear_reports
 
-    create_report = ven.create_reports.new
-    create_report.name = self.class.name
-    create_report.request_id = SecureRandom.hex(10)
-    create_report.save
+    create_report = ven.create_reports.create(name: self.class.name, request_id: SecureRandom.hex(10))
 
     report_request = add_report_request(ven, create_report, report_name, dtstart, duration, granularity, report_back_duration, metadata)
 

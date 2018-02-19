@@ -348,7 +348,7 @@ class VensController < BaseController
       # add a distributeEvent payload... need to ensure there's always a payload available
       # an update could change profiles which requires the payload to be regenerated
       vtn_parameters = VtnParameter.first
-      CreateDistributeEvent.create_distribute_event(@ven, vtn_parameters)
+      CreateDistributeEvent.create_distribute_event(@ven_interface.ven, vtn_parameters)
 
       redirect_to ven_path(@ven_interface.ven.id), notice: 'VEN was successfully created.'
     else
@@ -498,11 +498,6 @@ class VensController < BaseController
     @ven = Ven.find(params[:id])
 
     @events = @ven.sorted_events
-
-    if !current_account.is_admin?
-      # Keep only events which are ALSO present in current_account's events
-      @events &= current_account.events
-    end
   end
 
   ########################################################

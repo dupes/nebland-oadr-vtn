@@ -205,7 +205,7 @@
 #  updated_at                  :datetime         not null
 #  registration_id             :integer
 #  ven_id                      :string(255)
-#  common_name                 :string(255)
+#  fingerprint                 :string(255)
 #  distribute_event_payload    :text
 #  profile_id                  :integer
 #  http_push                   :boolean
@@ -222,7 +222,7 @@ FactoryGirl.define do
 
   factory :ven do
     sequence(:name) { |n| "Factory Ven #{ n }" }
-    sequence(:common_name) { |n| "factory_ven_#{ n }" }
+    sequence(:fingerprint) { |n| "factory_ven_#{ n }" }
     time_zone "UTC"
     ven_interface_name "standard"
 

@@ -219,8 +219,8 @@ class OadrLibNegativeTest < ActionDispatch::IntegrationTest
     @ven.save
 
     # environment vars passed to the app from Apache when SSL is on
-    @http_vars_valid = {'HTTP_HTTPS' => 'on', 'HTTP_SSL_CLIENT_S_DN_CN' => @ven.common_name}
-    @http_vars_invalid = {'HTTP_HTTPS' => 'on', 'HTTP_SSL_CLIENT_S_DN_CN' => 'Invalid'}
+    @http_vars_valid = {'HTTP_HTTPS' => 'on', 'SSL_CLIENT_CERT' => File.read("test/integration/input/cert-newlines-to-spaces.pem")}
+    @http_vars_invalid = {'HTTP_HTTPS' => 'on', 'SSL_CLIENT_CERT' => File.read("test/integration/input/negative-cert-newlines-to-spaces.pem")}
   end
 
   ########################################################
@@ -604,14 +604,16 @@ class OadrLibNegativeTest < ActionDispatch::IntegrationTest
     validate_ei_reponse_b(@response.body, "452", 'oadr_created_party_registration')
 
     #
-    # w/SSL, CN VEN doesn't match ven.name
-    # this ven name must match an existing VEN
+    # w/SSL, ignore the ven name field
+    # registration should succeed if a valid fingerprint is presented
+    # this test setst the VEN name from VEN two but the ssl param received will be
+    # from VEN one
     #
     xml = generate_create_registration(vens(:ven2).name)
 
     post oadr20b_register_path, xml, @http_vars_valid
     assert_response(200)
-    validate_ei_reponse_b(@response.body, "463", 'oadr_created_party_registration')
+    validate_ei_reponse_b(@response.body, "200", 'oadr_created_party_registration')
 
   end
 
@@ -631,7 +633,7 @@ class OadrLibNegativeTest < ActionDispatch::IntegrationTest
     assert_response(200)
     validate_ei_reponse_b(@response.body, "200", 'oadr_created_party_registration')
 
-    # if the name and registration are nil, the server should rely on the VEN lookup based on the certificate (common_name)
+    # if the name and registration are nil, the server should rely on the VEN lookup based on the certificate fingerprint
     xml = generate_create_registration(nil, nil)
 
     post oadr20b_register_path, xml, @http_vars_valid

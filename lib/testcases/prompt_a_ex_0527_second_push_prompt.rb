@@ -185,26 +185,10 @@
 #
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-class Prompt058 < PromptBase
+class PromptAEx0527SecondPushPrompt < PromptBase
   include PromptHelper
 
   def execute
-    create_report = create_create_request('METADATA_TELEMETRY_STATUS', DateTime.now, "PT0M", "PT0M", "PT0M", false, true, false)
-
-    ven = VtnParameter.first.ven
-
-    report_request = add_report_request(ven, create_report, 'METADATA_TELEMETRY_USAGE', DateTime.now, "PT0M", "PT0M", "PT0M")
-    
-    # "select" the report_interval_descriptions that are required for the test
-    report_request.report.report_interval_descriptions.where("emix_item LIKE '%Real%'").each do |report_interval_description|
-      report_request_description = report_request.report_request_descriptions.new
-
-      report_request_description.report_interval_description_id = report_interval_description.id
-
-      report_request_description.save
-    end
-
-    create_report.queue_create_report
+    event1 = create_default_event_new(@dtstart + 10.minutes, 5, 0, @mc1, @response_required_always, 0, 0, 0, 0, false, true)
   end
 end
-

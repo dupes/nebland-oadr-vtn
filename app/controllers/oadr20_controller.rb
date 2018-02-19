@@ -185,24 +185,22 @@
 #
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+require 'pem_fingerprint.rb'
+
 class Oadr20Controller < ApplicationController
 
-
   def process_request(oadr_service)
-
     validate = false
     ven = nil
 
     # HTTPs is on
     if request.headers.has_key?('HTTP_HTTPS')
 
-      # the proxy is configured to send the SSL_CLIENT_S_DN parameter from the certificate
-      # here's a sample DN: /C=US/O=QualityLogic, Inc./OU=OpenADR VEN Device Certificate/CN=111111111111
-      # we need to retrieve the common name (CN=)
-      # cn = request.headers['HTTP_SSL_CLIENT_S_DN'].split('CN=')[1].split(',')[0]
-      cn = request.headers['HTTP_SSL_CLIENT_S_DN_CN']
-
-      ven = Ven.find_by_common_name(cn)
+      cert_text = request.headers['SSL_CLIENT_CERT']
+      
+      fingerprint = PemFingerprint::generate(cert_text)
+      
+      ven = Ven.find_by_fingerprint(fingerprint)
 
       validate = true
     end

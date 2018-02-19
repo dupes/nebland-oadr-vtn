@@ -205,7 +205,7 @@
 #  updated_at                  :datetime         not null
 #  registration_id             :integer
 #  ven_id                      :string(255)
-#  common_name                 :string(255)
+#  fingerprint                 :string(255)
 #  distribute_event_payload    :text
 #  profile_id                  :integer
 #  http_push                   :boolean
@@ -303,6 +303,22 @@ class VenTest < ActiveSupport::TestCase
     assert_true !@ven.last_comm_at.nil?, "create_ven_poll should update last_comm_at"
 
     assert_equal @ven.status, "online"
+  end
+
+  ######################################################################
+  
+  test "format fingerprint on assignment" do
+    @ven.fingerprint = "aSdfgHjkl9"
+    
+    assert_equal("as:df:gh:jk:l9", @ven.fingerprint)
+  end
+  
+  ######################################################################
+  
+  test "format fingerprint on update" do
+    @ven.update_attributes(fingerprint: "aSdfgHjkl9")
+    
+    assert_equal("as:df:gh:jk:l9", @ven.fingerprint)
   end
 
 end

@@ -340,6 +340,21 @@ module LoadPrompts
         ported: false
     )
 
+    TestCasePrompt.create(name: 'Prompt073', test_cases: 'prompt_073',
+        instructions: 'The VTN DUT should be configured to add an additional ELECTRITY_PRICE event configured as follows: : A pending event (dtstart=current time + 25 minutes, one interval of 5 minutes) with two resources configured. Click resume when event has been added to the VTN.',
+        ported: false
+    )
+    
+    TestCasePrompt.create(name: 'Prompt023', test_cases: 'prompt_023: event_003, E1_1055',
+        instructions: 'First Prompt: The VTN DUT should be configured so that there is a single event configured as follows: ' +
+        'dtstart= CurrentTime + 1 minute, duration = 5 minutes ' +
+        'Signal 1 : SIMPLE, signalType = level ' +
+        'Interval #1, 5 minutes, signalPayload = 2 ' +
+        'Signal 2 ELECTRICITY_PRICE, signalType = price, units  = currencyPerKWh ' +
+        'Interval #1, 5 minutes, signalPayload = 3.14. ',
+        ported: false
+    )
+
   end
 
   #####################################################################
@@ -468,13 +483,19 @@ module LoadPrompts
 
     loadPrompt('A_Ex_0527_first_pull_prompt',
                'First Pull Prompt: A_Ex_0527',
-               'The VTN should be configured so that there is a single pending event that will start in 5 minutes (dtstart =current time +5 minutes, one interval of 5 minutes). Set x-RampUp time to 4 minutes.',
+               'The VTN should be configured so that there is a single pending event that will start in 3 minutes (dtstart =current time +3 minutes, one interval of 3 minutes). Set x-RampUp time to 4 minutes.',
                true
     )
 
     loadPrompt('A_Ex_0527_first_push_prompt',
                'First Push Prompt: A_Ex_0527',
-               'The VTN should be configured so that there is a single pending event that will start in 3 minutes (dtstart =current time +3 minutes, one interval of 3 minutes). Set x-RampUp time to 4 minutes.',
+               'The VTN should be configured so that there is a single pending event that will start in 5 minutes (dtstart =current time +5 minutes, one interval of 5 minutes). Set x-RampUp time to 4 minutes.',
+               true
+    )
+    
+    loadPrompt('A_Ex_0527_second_push_prompt',
+               'Second Push Prompt: A_Ex_0527',
+               'Test execution has paused to allow for manual intervention. The VTN should be configured with a new pending event that will start in 10 minutes(dtstart=current time +10 minutes, one interval of 5 minutes).',
                true
     )
 

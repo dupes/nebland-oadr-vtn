@@ -190,9 +190,30 @@ class Prompt045 < PromptBase
 
   def execute
 
-    # create_create_request('METADATA_TELEMETRY_USAGE', DateTime.now, 0, 1, 0)
-    create_create_request('METADATA_TELEMETRY_USAGE', nil, nil, 1, 0)
+    # create the CreateReport, but don't queue it yet
+    create_report = create_create_request('METADATA_TELEMETRY_USAGE', DateTime.now, "PT0M", "PT1M", "PT0M", false, true, false)
+    
+    # there are three interval descriptions registered from the test harness ven
+    #   Java::EpriOadr2bLib::EnergyRealType
+    #   Java::EpriOadr2bLib::PowerRealType
+    #   Java::EpriOadr2bLib::PulseCountType
+    #
+    # The prompt is to select the "energyReal" and "powerReal" for reporting
+    
+    # there is only one report_request
+    report_request = create_report.report_requests[0]
+    
+    # "select" the report_interval_descriptions that are required for the test
+    report_request.report.report_interval_descriptions.where("emix_item LIKE '%Real%'").each do |report_interval_description|
+      report_request_description = report_request.report_request_descriptions.new
 
+      report_request_description.report_interval_description_id = report_interval_description.id
+
+      report_request_description.save
+    end
+    
+    create_report.queue_create_report
+    
     # test spec says to include only powerReal and energyReal but testset requires all 3
   end
 end

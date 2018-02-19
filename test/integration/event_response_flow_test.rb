@@ -211,7 +211,7 @@ class EventFlowTests < ActionDispatch::IntegrationTest
 
 		event.save!
 
-		ven = Ven.new(name: "TH_VEN", common_name: "anohter cn")
+		ven = Ven.new(name: "TH_VEN", fingerprint: "anohter cn")
 		# ven.account_id must be assigned this way to circumvent mass assignment protection
 		ven.assign_attributes({ account_id: 1 }, without_protection: true)
 		ven.save

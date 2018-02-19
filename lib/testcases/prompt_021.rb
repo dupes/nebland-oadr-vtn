@@ -190,7 +190,7 @@ class Prompt021 < PromptBase
 
   def execute
 
-    create_create_request('METADATA_TELEMETRY_STATUS', DateTime.now + 15.seconds, 10, 1, 1, false, false)
+    create_create_request('METADATA_TELEMETRY_STATUS', DateTime.now + 15.seconds, "PT10M", "PT1M", "PT1M", false, false)
 
   end
 end

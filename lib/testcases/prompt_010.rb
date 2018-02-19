@@ -202,7 +202,7 @@ class Prompt010 < PromptBase
     interval = signal.event_signal_intervals[0]
     interval.payload = 3.14
     interval.save
-
+    
     event.publish
 
   end

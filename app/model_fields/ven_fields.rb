@@ -188,7 +188,7 @@
 
 class VENFields
 	attr_reader :name, :email, :address, :state, :zip, :geospatial_location, :grid_electrical_coordinates, :shed_capability,
-		:ramp_period, :recovery_period, :account_id, :status, :last_comm_at, :view_registration_id, :ven_id, :common_name,
+		:ramp_period, :recovery_period, :account_id, :status, :last_comm_at, :view_registration_id, :ven_id, :fingerprint,
     :profile_id, :transport_address, :http_push, :time_zone, :auto_report_request, :report_back_duration
 
 	attr_reader :fields
@@ -220,7 +220,7 @@ class VENFields
     @view_registration_id = TextField.new(:view_registration_id, "Registration ID")
 
     @ven_id = TextField.new(:ven_id, "VEN ID", :true, {title: "unique string to a identify a VEN", disabled: false}, nil)
-    @common_name = TextField.new(:common_name, "Common Name", :true, {title: "SSL/TLS common name; required for authorization"}, nil)
+    @fingerprint = TextField.new(:fingerprint, "Fingerprint", :true, {title: "SSL/TLS certificate fingerprint; required for authorization"}, nil)
 
     @profile_id = SelectField.new(:profile_id, "OpenADR Profile", :true, {title: "OpenADR Profile"}, nil, :profile, :name, Profile, true)
     @transport_address = TextField.new(:transport_address, "Transport Address", :true, {title: "required for 2.0a profile HTTP push and XMPP VENS", size: 45}, nil)
@@ -251,7 +251,7 @@ class VENFields
     @fields[:view_registration_id] = view_registration_id
 
     @fields[:ven_id] = @ven_id
-    @fields[:common_name] = @common_name
+    @fields[:fingerprint] = @fingerprint
 
     @fields[:profile_id] = @profile_id
     @fields[:transport_address] = @transport_address

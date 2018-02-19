@@ -185,26 +185,22 @@
 #
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-class Prompt058 < PromptBase
+class Prompt073 < PromptBase
   include PromptHelper
 
   def execute
-    create_report = create_create_request('METADATA_TELEMETRY_STATUS', DateTime.now, "PT0M", "PT0M", "PT0M", false, true, false)
+    event = create_default_event_new(@dtstart + 25.minute, 5, 0, @mc1, @response_required_always, 0, 0, 0, 0, false, false)
 
-    ven = VtnParameter.first.ven
+    # one ELECTRICITY_PRICE signal
+    event.event_signals[0].signal_name = SignalName.find_by_name_case_sensitive('ELECTRICITY_PRICE')
+    event.event_signals[0].signal_type = SignalType.find_by_name('PRICE')
+    event.event_signals[0].emix_unit = UnitType.find_by_name('currencyPerKWh').emix_units[0]
+    event.event_signals[0].save
 
-    report_request = add_report_request(ven, create_report, 'METADATA_TELEMETRY_USAGE', DateTime.now, "PT0M", "PT0M", "PT0M")
-    
-    # "select" the report_interval_descriptions that are required for the test
-    report_request.report.report_interval_descriptions.where("emix_item LIKE '%Real%'").each do |report_interval_description|
-      report_request_description = report_request.report_request_descriptions.new
+    # event.event_signals[0].event_signal_intervals[0].payload = 1
+    # event.event_signals[0].event_signal_intervals[0].save
 
-      report_request_description.report_interval_description_id = report_interval_description.id
+    event.publish
 
-      report_request_description.save
-    end
-
-    create_report.queue_create_report
   end
 end
-

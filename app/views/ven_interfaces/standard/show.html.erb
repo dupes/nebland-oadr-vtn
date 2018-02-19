@@ -34,7 +34,7 @@
       <%= f.fields_for :ven, @ven_interface.ven do |ff| %>
         <%= build_fieldset_solo(
             ff, "Identification",
-            [:name, :common_name, :ven_id, :email],
+            [:name, :fingerprint, :ven_id, :email],
             @ven_interface,
             @ven_interface.ven
           )

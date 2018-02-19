@@ -205,7 +205,7 @@
 #  updated_at                  :datetime         not null
 #  registration_id             :integer
 #  ven_id                      :string(255)
-#  common_name                 :string(255)
+#  fingerprint                 :string(255)
 #  distribute_event_payload    :text
 #  profile_id                  :integer
 #  http_push                   :boolean

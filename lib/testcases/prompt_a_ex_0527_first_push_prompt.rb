@@ -189,6 +189,6 @@ class PromptAEx0527FirstPushPrompt < PromptBase
   include PromptHelper
 
   def execute
-    event1 = create_default_event_new(@dtstart + 3.minutes, 3, 0, @mc1, @response_required_always, 0, 0, 4, 0, true, true)
+    event1 = create_default_event_new(@dtstart + 5.minutes, 5, 0, @mc1, @response_required_always, 0, 0, 4, 0, true, true)
   end
 end

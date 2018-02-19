@@ -189,7 +189,7 @@ class PromptAEx0420First
   include PromptHelper
 
   def execute
-    event = create_default_event(0, 5)
+    event = create_default_event(1, 5)
 
   end
 end

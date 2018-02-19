@@ -201,5 +201,6 @@ class EventStatus < ActiveRecord::Base
 
   validates :name, :presence => true, uniqueness: { case_sensitive: false }
 
-  scope :inactive, -> { where("name in ('cancelled', 'completed')") }
+  scope :inactive,  -> { where("name in ('cancelled', 'completed')") }
+  scope :cancelled, -> { where(name: 'cancelled') }
 end

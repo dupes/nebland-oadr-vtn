@@ -259,5 +259,5 @@ module Oadr
     config.assets.version = '1.0'
   end
 
-  VERSION='v0.9.7'
+  VERSION='v0.9.8'
 end

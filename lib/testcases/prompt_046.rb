@@ -190,7 +190,7 @@ class Prompt046 < PromptBase
 
   def execute
 
-    create_report = create_create_request('METADATA_TELEMETRY_USAGE', DateTime.now + 15.seconds, 10, 1, 2, false, true, false)
+    create_report = create_create_request('METADATA_TELEMETRY_USAGE', DateTime.now + 15.seconds, "PT10M", "PT1M", "PT2M", false, true, false)
 
     report_request = create_report.report_requests[0]
 

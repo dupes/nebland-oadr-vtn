@@ -42,3 +42,4 @@ coverage
 lib/api/*
 lib/schema/*
 
+oasis-downloads/*

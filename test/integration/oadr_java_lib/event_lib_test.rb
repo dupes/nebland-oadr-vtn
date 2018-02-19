@@ -339,7 +339,6 @@ class OadrLibTest < ActionDispatch::IntegrationTest
   ########################################################
 
   test "request event" do
-
     admin = accounts(:admin)
     admin.password ="testing"
     admin.password_confirmation = "testing"
@@ -357,7 +356,7 @@ class OadrLibTest < ActionDispatch::IntegrationTest
 
     venid_target.vens << ven
 
-    http_vars = {'HTTP_HTTPS' => 'on', 'HTTP_SSL_CLIENT_S_DN_CN' => ven.common_name}
+    http_vars = {'HTTP_HTTPS' => 'on', 'SSL_CLIENT_CERT' => File.read("test/integration/input/cert-newlines-to-spaces.pem")}
 
     registration = ven.registrations.new
     registration.save

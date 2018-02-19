@@ -205,7 +205,7 @@
 #  updated_at                  :datetime         not null
 #  registration_id             :integer
 #  ven_id                      :string(255)
-#  common_name                 :string(255)
+#  fingerprint                 :string(255)
 #  distribute_event_payload    :text
 #  profile_id                  :integer
 #  http_push                   :boolean
@@ -218,10 +218,12 @@
 #  city                        :string(255)
 #
 
+require 'pem_fingerprint.rb'
+
 class Ven < ActiveRecord::Base
 
   attr_accessible :email, :geospatial_location, :grid_electrical_coordinates, :name, :ramp_period,
-    :recovery_period, :shed_capability, :common_name, :profile_id, :transport_address,
+    :recovery_period, :shed_capability, :fingerprint, :profile_id, :transport_address,
     :address_label, :address, :address_extra, :city, :state, :zip,
     :http_push, :ven_id, :time_zone, :ven_interface_name
 
@@ -254,9 +256,9 @@ class Ven < ActiveRecord::Base
 
   validates :name, :presence => true, uniqueness: { case_sensitive: false }
 
-  validates_uniqueness_of :common_name, :allow_nil => false, :allow_blank => false
+  validates_uniqueness_of :fingerprint, :allow_nil => false, :allow_blank => false
 
-  validates_presence_of :common_name
+  validates_presence_of :fingerprint
 
   validates_uniqueness_of :ven_id, :allow_nil => false, :allow_blank => false, :message => " ID already taken"
 
@@ -319,7 +321,13 @@ class Ven < ActiveRecord::Base
   #end
 
   #####################################################################
+  
+  def fingerprint=(text)
+    self[:fingerprint] = PemFingerprint::normalize(text)
+  end
 
+  #####################################################################
+  
   def self.fields
     VENFields.new.fields
   end
@@ -327,7 +335,7 @@ class Ven < ActiveRecord::Base
   #####################################################################
 
   def sorted_events
-    self.events.sort { |e1, e2| Event.compare(e1, e2) }
+    events = self.events.active4.sort { |e1, e2| Event.compare(e1, e2) }
   end
 
   #####################################################################

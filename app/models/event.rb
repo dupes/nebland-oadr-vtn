@@ -236,7 +236,8 @@ class Event < ActiveRecord::Base
   scope :order_by_dtstart, -> { order('dtstart ASC') }
   scope :order_by_duration, -> { order('duration DESC') }
   scope :active, -> { where("event_status_id not in (?)", EventStatus.inactive.pluck(:id)) }
-  scope :active24, -> { where("event_status_id not in (?) or (event_status_id in (?) and events.updated_at < ?)", EventStatus.inactive.pluck(:id), EventStatus.inactive.pluck(:id), Time.now + 24.hours) }
+  scope :active24, -> { where("event_status_id not in (?) or (event_status_id in (?) and events.updated_at > ?)", EventStatus.inactive.pluck(:id), EventStatus.inactive.pluck(:id), Time.now - 24.hours) }
+  scope :active4, -> { where("event_status_id not in (?) or (event_status_id in (?) and events.updated_at > ?)", EventStatus.inactive.pluck(:id), EventStatus.inactive.pluck(:id), Time.now - 4.hours) }
 
   belongs_to :market_context
   belongs_to :event_status
@@ -689,7 +690,7 @@ class Event < ActiveRecord::Base
 
 
   def self.update_statuses
-    events = Event.where("template <> true or template is null")
+    events = Event.where("template <> true or template is null").active
 
     affected_vens = []
 

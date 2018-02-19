@@ -189,10 +189,7 @@ class Prompt019 < PromptBase
   include PromptHelper
 
   def execute
-
-    # create_create_request('METADATA_TELEMETRY_STATUS', DateTime.now, 0, 0, 0)
-    create_create_request('METADATA_TELEMETRY_STATUS', nil, nil, 0, 0)
-
+    create_create_request('METADATA_TELEMETRY_STATUS', DateTime.now, "PT0M", "PT0M", "PT0M")
   end
 end
 

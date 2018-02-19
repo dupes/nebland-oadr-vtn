@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160923193100) do
+ActiveRecord::Schema.define(:version => 20171201182034) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -809,7 +809,7 @@ ActiveRecord::Schema.define(:version => 20160923193100) do
     t.datetime "updated_at",                                     :null => false
     t.integer  "registration_id"
     t.string   "ven_id"
-    t.string   "common_name"
+    t.string   "fingerprint"
     t.text     "distribute_event_payload"
     t.integer  "profile_id"
     t.boolean  "http_push"
@@ -823,7 +823,7 @@ ActiveRecord::Schema.define(:version => 20160923193100) do
   end
 
   add_index "vens", ["account_id"], :name => "index_vens_on_account_id"
-  add_index "vens", ["common_name"], :name => "index_vens_on_common_name", :unique => true
+  add_index "vens", ["fingerprint"], :name => "index_vens_on_common_name", :unique => true
   add_index "vens", ["ven_id"], :name => "index_vens_on_ven_id", :unique => true
 
   create_table "vtn_parameters", :force => true do |t|

@@ -18,7 +18,7 @@
 #  updated_at                  :datetime         not null
 #  registration_id             :integer
 #  ven_id                      :string(255)
-#  common_name                 :string(255)
+#  fingerprint                 :string(255)
 #  distribute_event_payload    :text
 #  profile_id                  :integer
 #  http_push                   :boolean
@@ -44,8 +44,8 @@ ven1:
   shed_capability: 100
   ramp_period: 200
   recovery_period: 202
-  common_name: cn1
   time_zone: Hawaii
+  fingerprint: 8c:3e:7b:87:ab:46:3d:94:38:ca:cd:fc:d6:54:0c:cd:33:61:7b:8f
 
 ven2:
   name: ven2
@@ -60,5 +60,5 @@ ven2:
   shed_capability: 100
   ramp_period: 200
   recovery_period: 202
-  common_name: cn2
   time_zone: Hawaii
+  fingerprint: 8c:3e:7b:87:ab:46:3d:94:38:ca:cd:fc:d6:54:0c:cd:33:61:7b:8c
