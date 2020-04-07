@@ -1,10 +1,11 @@
-Welcome to the nebland software OpenADR VTN repo.  This repo will be home to the
-open source version of our commercial offering.  The github wiki has information on our
-[commercial offering](https://github.com/dupes/nebland-oadr-vtn/wiki/Commercial-Offering).
+**Update April 7th 2020**
+This version of the VTN software is no longer being maintained and is severely out 
+of date.  It contains many security vulnerabilities and relies on versions of Java
+and Rails that are no longer supported. 
 
-If you're looking for the virtual machine appliance, information is still available
-on the [wiki](https://github.com/dupes/nebland-oadr-vtn/wiki/Virtual-Machine-Appliance).
+Due to lack of interest, we are no longer supporting an open source version of this
+software.  We are instead focused on a commercial version which includes discounts 
+for universities and other research institutions.  
 
-Updates will be pushed to this repo periodically (yearly?).  If you require support
-or would like early access to new features, please contact us to find out how you
-can join the program: info@nebland.com.
+To learn more about what we offer, visit our website (https://www.gridfabric.io) or 
+email us (contact@gridfabric.io).
